@@ -25,7 +25,7 @@ A API desenvolvida nesse trabalho está disponibilizada no caminho `http://{host
  >  2. O campo *' id'* é gerado automaticamente pela API, portanto, não deve ser enviado;
  >  3. O campo *'lista_artigos'* é preenchido automaticamente pela API, portanto, não deve ser enviado.
 ### Editar Volume
-`PUT /api/evento/volume`
+`PUT /api/evento/volume/{id}`
  >  1. Os dados são recebidos via URL Encoded;
  >  2. O campo *'lista_artigos'* é preenchido automaticamente pela API, portanto, não deve ser enviado.
 ### Deletar Volume
@@ -56,7 +56,7 @@ A API desenvolvida nesse trabalho está disponibilizada no caminho `http://{host
  >  3. O campo *'volume'* recebe somente o campo *'id'* de seu Volume;
  >  4. O campo *'lista_autores'* é preenchido automaticamente pela API, portanto, não deve ser enviado.
 ### Editar Artigo
-`PUT /api/evento/artigo`
+`PUT /api/evento/artigo/{id}`
  >  1. Os dados são recebidos via URL Encoded;
  >  2. O campo *'volume'* recebe somente o campo *'id'* de seu Volume;
  >  3. O campo *'lista_autores'* é preenchido automaticamente pela API, portanto, não deve ser enviado.
@@ -88,7 +88,7 @@ A API desenvolvida nesse trabalho está disponibilizada no caminho `http://{host
  > 2. O campo *'id'* é gerado automaticamente pela API, portanto, não deve ser enviado;
  > 3. O campo *'artigo'* recebe somente o campo *'id'* de seu Artigo, portanto, não deve ser enviado.
 ### Editar Autor
-`PUT /api/evento/autor`
+`PUT /api/evento/autor/{id}`
  > 1. Os dados são recebidos via URL Encoded;
  > 2. O campo *'artigo'* recebe somente o campo *'id'* de seu Artigo, portanto, não deve ser enviado.
 ### Deletar Autor
