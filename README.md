@@ -21,13 +21,13 @@ A API desenvolvida nesse trabalho está disponibilizada no caminho `http://{host
 `GET /api/evento/volume/{id}`
 ### Criar Volume
 `POST /api/evento/volume`
- >  Os dados são recebidos via URL Encoded;
- >  O campo *' id'* é gerado automaticamente pela API, portanto, não deve ser enviado;
- >  O campo *'lista_artigos'* é preenchido automaticamente pela API, portanto, não deve ser enviado.
+ >  1. Os dados são recebidos via URL Encoded;
+ >  2. O campo *' id'* é gerado automaticamente pela API, portanto, não deve ser enviado;
+ >  3. O campo *'lista_artigos'* é preenchido automaticamente pela API, portanto, não deve ser enviado.
 ### Editar Volume
 `PUT /api/evento/volume`
- >  Os dados são recebidos via URL Encoded;
- >  O campo *'lista_artigos'* é preenchido automaticamente pela API, portanto, não deve ser enviado.
+ >  1. Os dados são recebidos via URL Encoded;
+ >  2. O campo *'lista_artigos'* é preenchido automaticamente pela API, portanto, não deve ser enviado.
 ### Deletar Volume
 `DELETE /api/evento/volume/{id}`
 
@@ -51,15 +51,15 @@ A API desenvolvida nesse trabalho está disponibilizada no caminho `http://{host
 `GET /api/evento/artigo/{id}`
 ### Criar Artigo
 `POST /api/evento/artigo`
- >  Os dados são recebidos via URL Encoded;
- >  O campo *'id'* é gerado automaticamente pela API, portanto, não deve ser enviado;
- >  O campo *'volume'* recebe somente o campo *'id'* de seu Volume;
- >  O campo *'lista_autores'* é preenchido automaticamente pela API, portanto, não deve ser enviado.
+ >  1. Os dados são recebidos via URL Encoded;
+ >  2. O campo *'id'* é gerado automaticamente pela API, portanto, não deve ser enviado;
+ >  3. O campo *'volume'* recebe somente o campo *'id'* de seu Volume;
+ >  4. O campo *'lista_autores'* é preenchido automaticamente pela API, portanto, não deve ser enviado.
 ### Editar Artigo
 `PUT /api/evento/artigo`
- >  Os dados são recebidos via URL Encoded;
- >  O campo *'volume'* recebe somente o campo *'id'* de seu Volume;
- >  O campo *'lista_autores'* é preenchido automaticamente pela API, portanto, não deve ser enviado.
+ >  1. Os dados são recebidos via URL Encoded;
+ >  2. O campo *'volume'* recebe somente o campo *'id'* de seu Volume;
+ >  3. O campo *'lista_autores'* é preenchido automaticamente pela API, portanto, não deve ser enviado.
 ### Deletar Artigo
 `DELETE /api/evento/artigo/{id}`
 
@@ -84,12 +84,12 @@ A API desenvolvida nesse trabalho está disponibilizada no caminho `http://{host
 `GET /api/evento/autor/{id}`
 ### Criar Autor
 `POST /api/evento/autor`
- > Os dados são recebidos via URL Encoded;
- > O campo *'id'* é gerado automaticamente pela API, portanto, não deve ser enviado;
- >  O campo *'artigo'* recebe somente o campo *'id'* de seu Artigo, portanto, não deve ser enviado.
+ > 1. Os dados são recebidos via URL Encoded;
+ > 2. O campo *'id'* é gerado automaticamente pela API, portanto, não deve ser enviado;
+ > 3. O campo *'artigo'* recebe somente o campo *'id'* de seu Artigo, portanto, não deve ser enviado.
 ### Editar Autor
 `PUT /api/evento/autor`
- > Os dados são recebidos via URL Encoded;
- >  O campo *'artigo'* recebe somente o campo *'id'* de seu Artigo, portanto, não deve ser enviado.
+ > 1. Os dados são recebidos via URL Encoded;
+ > 2. O campo *'artigo'* recebe somente o campo *'id'* de seu Artigo, portanto, não deve ser enviado.
 ### Deletar Autor
 `DELETE /api/evento/autor/{id}`
