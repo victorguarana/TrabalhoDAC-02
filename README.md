@@ -33,7 +33,6 @@ A API desenvolvida nesse trabalho está disponibilizada no caminho `http://{host
     	<descricao>Descrição em portugês</descricao>
     	<descricaoEn>Description in English</descricaoEn>
     	<edicao>1</edicao>
-    	<id>1</id>
     	<sigla>SIGLA</sigla>
     </volume>
 ### Deletar Volume
@@ -68,7 +67,6 @@ A API desenvolvida nesse trabalho está disponibilizada no caminho `http://{host
  >  2. O campo *'volume'* recebe somente o campo *'id'* de seu Volume.
 ##### Exemplo de XML:
      <artigo>
-    	<id>1</id>
     	<idioma>PT-BR</idioma>
     	<ordemVolume>1</ordemVolume>
     	<palavrasChave>Palavras Chave</palavrasChave>
@@ -115,7 +113,6 @@ A API desenvolvida nesse trabalho está disponibilizada no caminho `http://{host
     	<afiliacao>Afiliacao</afiliacao>
     	<afiliacaoEn>Afiliacao</afiliacaoEn>
     	<email>e-mail</email>
-    	<id>1</id>
     	<nomePrimeiro>Primeiro</nomePrimeiro>
     	<nomeMeio>Meio</nomeMeio>
     	<nomeUltimo>Ultimo</nomeUltimo>
