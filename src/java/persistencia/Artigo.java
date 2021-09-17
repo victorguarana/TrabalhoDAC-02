@@ -1,15 +1,15 @@
 package persistencia;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -28,12 +28,13 @@ public class Artigo implements Serializable {
     private String resumo_en;
     private String palavras_chave;
     private String palavras_chave_en;
-    @JoinColumn(name = "Volume", referencedColumnName = "id")
-    @ManyToOne
-    private Volume volume;
-    @OneToMany(mappedBy = "Artigo")
-    @OrderBy("ordem_artigo")
-    private List<Autor> lista_autores;
+    
+    @OneToMany(
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
+    @JoinColumn(name = "artigo")
+    private List<Autor> autores = new ArrayList<>();
     public Long getId() {
         return id;
     }
@@ -105,22 +106,17 @@ public class Artigo implements Serializable {
     public void setPalavrasChaveEn(String palavras_chave_en) {
         this.palavras_chave_en = palavras_chave_en;
     }
-    
-    public Volume getVolume() {
-        return volume; 
-    }
-
-    public void setVolume(long volume_id) {
-        JPAVolumeDAO jpa = new JPAVolumeDAO();
-        this.volume = jpa.recupera(volume_id);
-    }
 
     public List<Autor> getListaAutores() {
-        return lista_autores; 
+        return autores; 
     }
 
-    public void setListaAutores(List<Autor> lista_autores) {
-        this.lista_autores = lista_autores;
+    public void addAutor(Autor autor) {
+        this.autores.add(autor);
+    }
+    
+    public void removeAutor(Autor autor) {
+        this.autores.remove(autor);
     }
     
     @Override

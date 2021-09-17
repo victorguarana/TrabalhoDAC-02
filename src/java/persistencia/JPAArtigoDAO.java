@@ -12,12 +12,20 @@ public class JPAArtigoDAO {
     public JPAArtigoDAO() {
     }
         
-    public void salva(Artigo artigo) {
-        
+    public void cria(Artigo artigo) {
         em = JPAUtil.getEM();
         EntityTransaction et = em.getTransaction();
         et.begin();
         em.persist(artigo);
+        et.commit();
+        em.close();
+    }
+    
+    public void atualiza(Artigo artigo) {
+        em = JPAUtil.getEM();
+        EntityTransaction et = em.getTransaction();
+        et.begin();
+        em.merge(artigo);
         et.commit();
         em.close();
     }
@@ -51,17 +59,6 @@ public class JPAArtigoDAO {
         List<Artigo> artigo = query.getResultList();
         em.close();
         return artigo;
-    }
-    
-    public void remove(Long id) {
-        
-        em = JPAUtil.getEM();
-        EntityTransaction et = em.getTransaction();
-        et.begin();
-        Artigo a = em.find(Artigo.class, id);
-        em.remove(a);
-        et.commit();
-        em.close();
     }
     
 }

@@ -1,13 +1,15 @@
 package persistencia;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
-import javax.persistence.OrderBy;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -24,9 +26,12 @@ public class Volume implements Serializable {
     private String data_inicio;
     private String descricao_pt;
     private String descricao_en;
-    @OneToMany(mappedBy = "Volume")
-    @OrderBy("ordem_volume")
-    private List<Artigo> lista_artigos;
+    @OneToMany(
+        cascade = CascadeType.ALL,
+        orphanRemoval = true
+    )
+    @JoinColumn(name = "volume")
+    private List<Artigo> artigos = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -85,14 +90,17 @@ public class Volume implements Serializable {
     }
     
     public List<Artigo> getListaArtigos() {
-        return lista_artigos; 
+        return artigos; 
     }
 
-    public void setListaArtigos(List<Artigo> lista_artigos) {
-        this.lista_artigos = lista_artigos;
+    public void addArtigo(Artigo artigo) {
+        this.artigos.add(artigo);
     }
 
-
+    public void removeArtigo(Artigo artigo) {
+        this.artigos.remove(artigo);
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

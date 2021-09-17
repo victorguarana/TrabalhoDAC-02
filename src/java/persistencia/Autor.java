@@ -5,8 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -29,9 +27,6 @@ public class Autor implements Serializable {
     private String pais;
     private String orcid;
     
-    @JoinColumn(name = "Artigo", referencedColumnName = "id")
-    @ManyToOne
-    private Artigo artigo;
     
     public Long getId() {
         return id;
@@ -112,7 +107,7 @@ public class Autor implements Serializable {
     public void setOrcid(String orcid) {
         this.orcid = orcid;
     }
-
+/*
     public Artigo getArtigo() {
         return artigo; 
     }
@@ -120,7 +115,7 @@ public class Autor implements Serializable {
     public void setArtigo(long artigo_id) {
         JPAArtigoDAO jpa = new JPAArtigoDAO();
         this.artigo = jpa.recupera(artigo_id);
-    }
+    }*/
 
     @Override
     public int hashCode() {

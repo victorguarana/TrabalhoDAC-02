@@ -12,8 +12,7 @@ public class JPAVolumeDAO {
     public JPAVolumeDAO() {
     }
         
-    public void salva(Volume volume) {
-        
+    public void cria(Volume volume) {
         em = JPAUtil.getEM();
         EntityTransaction et = em.getTransaction();
         et.begin();
@@ -22,8 +21,16 @@ public class JPAVolumeDAO {
         em.close();
     }
     
+    public void atualiza(Volume volume) {
+        em = JPAUtil.getEM();
+        EntityTransaction et = em.getTransaction();
+        et.begin();
+        em.merge(volume);
+        et.commit();
+        em.close();
+    }
+    
     public Volume recupera(Long id) {
-        
         em = JPAUtil.getEM();
         EntityTransaction et = em.getTransaction();
         et.begin();

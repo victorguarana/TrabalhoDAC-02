@@ -12,8 +12,7 @@ public class JPAAutorDAO {
     public JPAAutorDAO() {
     }
         
-    public void salva(Autor autor) {
-        
+    public void cria(Autor autor) {
         em = JPAUtil.getEM();
         EntityTransaction et = em.getTransaction();
         et.begin();
@@ -22,6 +21,15 @@ public class JPAAutorDAO {
         em.close();
     }
     
+    public void atualiza(Autor autor) {
+        em = JPAUtil.getEM();
+        EntityTransaction et = em.getTransaction();
+        et.begin();
+        em.merge(autor);
+        et.commit();
+        em.close();
+    }
+        
     public Autor recupera(Long id) {
         
         em = JPAUtil.getEM();
@@ -53,14 +61,4 @@ public class JPAAutorDAO {
         return autor;
     }
     
-    public void remove(Long id) {
-        
-        em = JPAUtil.getEM();
-        EntityTransaction et = em.getTransaction();
-        et.begin();
-        Autor a = em.find(Autor.class, id);
-        em.remove(a);
-        et.commit();
-        em.close();
-    }
 }
