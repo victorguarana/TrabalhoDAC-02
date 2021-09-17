@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @Entity
@@ -31,6 +32,7 @@ public class Volume implements Serializable {
         orphanRemoval = true
     )
     @JoinColumn(name = "volume")
+    @OrderBy("ordem_volume")
     private List<Artigo> artigos = new ArrayList<>();
 
     public Long getId() {
