@@ -77,7 +77,7 @@ public class EventoService {
     @POST
     @Path("autor")
     @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
-    public void createAutor(@FormParam("ordem_artigo") int ordem_artigo, @FormParam("email") String email, @FormParam("nome_primeiro") String nome_primeiro, @FormParam("nome_meio") String nome_meio, @FormParam("nome_ultimo") String nome_ultimo, @FormParam("afiliacao") String afiliacao, @FormParam("afiliacao_en") String afiliacao_en, @FormParam("pais") String pais, @FormParam("orcid") String orcid, @FormParam("artigo_id") long artigo_id) {
+    public void createAutor(@FormParam("ordem_artigo") int ordem_artigo, @FormParam("email") String email, @FormParam("nome_primeiro") String nome_primeiro, @FormParam("nome_meio") String nome_meio, @FormParam("nome_ultimo") String nome_ultimo, @FormParam("afiliacao") String afiliacao, @FormParam("afiliacao_en") String afiliacao_en, @FormParam("pais") String pais, @FormParam("orcid") String orcid, @FormParam("artigo") long artigo_id) {
         JPAArtigoDAO artigo_dao = new JPAArtigoDAO();
         Artigo artigo = artigo_dao.recupera(artigo_id);
         Autor autor = new Autor();
