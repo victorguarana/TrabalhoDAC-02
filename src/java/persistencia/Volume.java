@@ -25,7 +25,7 @@ public class Volume implements Serializable {
     private int edicao;
     private String cidade;
     private String data_inicio;
-    private String descricao_pt;
+    private String descricao;
     private String descricao_en;
     @OneToMany(
         cascade = CascadeType.ALL,
@@ -75,12 +75,12 @@ public class Volume implements Serializable {
         this.data_inicio = data_inicio;
     }
 
-    public String getDescricaoPt() {
-        return descricao_pt; 
+    public String getDescricao() {
+        return descricao; 
     }
 
-    public void setDescricaoPt(String descricao_pt) {
-        this.descricao_pt = descricao_pt;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public String getDescricaoEn() {

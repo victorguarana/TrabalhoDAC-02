@@ -30,17 +30,27 @@ public class EventoService {
     public EventoService() {
     }
     
+        
+    
+    /*
+    =====================================================
+    ====================  POST  =========================
+    =====================================================
+    */
+    
+    
+    
     @POST
     @Path("volume")
     @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
-    public void createVolume(@FormParam("sigla") String sigla, @FormParam("edicao") int edicao, @FormParam("cidade") String cidade, @FormParam("data_inicio") String data_inicio, @FormParam("descricao_pt") String descricao_pt, @FormParam("descricao_en") String descricao_en) {
+    public void createVolume(@FormParam("sigla") String sigla, @FormParam("edicao") int edicao, @FormParam("cidade") String cidade, @FormParam("data_inicio") String data_inicio, @FormParam("descricao") String descricao, @FormParam("descricao_en") String descricao_en) {
         JPAVolumeDAO dao = new JPAVolumeDAO();
         Volume v = new Volume();
         v.setSigla(sigla);
         v.setEdicao(edicao);
         v.setCidade(cidade);
-        v.setDataInicio(descricao_en);
-        v.setDescricaoPt(descricao_pt);
+        v.setDataInicio(data_inicio);
+        v.setDescricao(descricao);
         v.setDescricaoEn(descricao_en);
         dao.cria(v);
     }
@@ -50,7 +60,7 @@ public class EventoService {
     @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
     public void createArtigo(@FormParam("ordem_volume") int ordem_volume, @FormParam("idioma") String idioma, @FormParam("titulo") String titulo, @FormParam("titulo_en") String titulo_en, @FormParam("resumo") String resumo, @FormParam("resumo_en") String resumo_en, @FormParam("palavras_chave") String palavra_chave, @FormParam("palavras_chave_en") String palavra_chave_en, @FormParam("volume") long volume_id) {
         JPAVolumeDAO volume_dao = new JPAVolumeDAO();
-        Volume v = volume_dao.recupera(volume_id);
+        Volume volume = volume_dao.recupera(volume_id);
         Artigo artigo = new Artigo();
         artigo.setOrdemVolume(ordem_volume);
         artigo.setIdioma(idioma);
@@ -60,8 +70,8 @@ public class EventoService {
         artigo.setResumoEn(resumo_en);
         artigo.setPalavrasChave(palavra_chave);
         artigo.setPalavrasChaveEn(palavra_chave_en);
-        v.addArtigo(artigo);
-        volume_dao.atualiza(v);
+        volume.addArtigo(artigo);
+        volume_dao.atualiza(volume);
     }
     
     @POST
@@ -70,7 +80,6 @@ public class EventoService {
     public void createAutor(@FormParam("ordem_artigo") int ordem_artigo, @FormParam("email") String email, @FormParam("nome_primeiro") String nome_primeiro, @FormParam("nome_meio") String nome_meio, @FormParam("nome_ultimo") String nome_ultimo, @FormParam("afiliacao") String afiliacao, @FormParam("afiliacao_en") String afiliacao_en, @FormParam("pais") String pais, @FormParam("orcid") String orcid, @FormParam("artigo_id") long artigo_id) {
         JPAArtigoDAO artigo_dao = new JPAArtigoDAO();
         Artigo artigo = artigo_dao.recupera(artigo_id);
-        JPAAutorDAO dao = new JPAAutorDAO();
         Autor autor = new Autor();
         autor.setOrdemArtigo(ordem_artigo);
         autor.setEmail(email);
@@ -85,6 +94,19 @@ public class EventoService {
         artigo_dao.atualiza(artigo);
     }
     
+    
+    
+    /*
+    =====================================================
+    ====================  GET  ==========================
+    =====================================================
+    */
+    
+    
+    /*
+    ====================  Individuais
+    */
+    
     @GET
     @Path("volume/{id}")
     @Produces({MediaType.APPLICATION_XML})
@@ -92,6 +114,26 @@ public class EventoService {
         JPAVolumeDAO dao = new JPAVolumeDAO();
         return dao.recupera(id);
     }
+
+    @GET
+    @Path("artigo/{id}")
+    @Produces({MediaType.APPLICATION_XML})
+    public Artigo findArtigo(@PathParam("id") Long id) {
+        JPAArtigoDAO dao = new JPAArtigoDAO();
+        return dao.recupera(id);
+    }
+
+    @GET
+    @Path("autor/{id}")
+    @Produces({MediaType.APPLICATION_XML})
+    public Autor findAutor(@PathParam("id") Long id) {
+        JPAAutorDAO dao = new JPAAutorDAO();
+        return dao.recupera(id);
+    }
+    
+    /*
+    ====================  Lista do mestre
+    */
     
     @GET
     @Path("volume/{id}/artigos")
@@ -110,22 +152,10 @@ public class EventoService {
         Artigo a = dao.recupera(id);
         return a.getListaAutores();
     }
-
-    @GET
-    @Path("artigo/{id}")
-    @Produces({MediaType.APPLICATION_XML})
-    public Artigo findArtigo(@PathParam("id") Long id) {
-        JPAArtigoDAO dao = new JPAArtigoDAO();
-        return dao.recupera(id);
-    }
-
-    @GET
-    @Path("autor/{id}")
-    @Produces({MediaType.APPLICATION_XML})
-    public Autor findAutor(@PathParam("id") Long id) {
-        JPAAutorDAO dao = new JPAAutorDAO();
-        return dao.recupera(id);
-    }
+    
+    /*
+    ====================  Todos por classe
+    */
     
     @GET
     @Path("volume")
@@ -150,6 +180,16 @@ public class EventoService {
         JPAAutorDAO dao = new JPAAutorDAO();
         return dao.recuperaTodos();
     }
+    
+        
+    
+    /*
+    =====================================================
+    ====================  PUT  ==========================
+    =====================================================
+    */
+    
+    
     
     @PUT
     @Path("volume/{id}")
@@ -177,6 +217,16 @@ public class EventoService {
         entity.setId(id);
         dao.atualiza(entity);
     }
+    
+        
+    
+    /*
+    ========================================================
+    ====================  DELETE  ==========================
+    ========================================================
+    */
+    
+    
     
     @DELETE
     @Path("volume/{id}")
