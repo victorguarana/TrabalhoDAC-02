@@ -254,6 +254,6 @@ public class EventoService {
         JPAArtigoDAO artigo_dao = new JPAArtigoDAO();
         Artigo artigo = artigo_dao.recupera(id_artigo);
         artigo.removeAutor(autor);
-        autor_dao.atualiza(autor);
+        artigo_dao.atualiza(artigo);
     }
 }
