@@ -123,3 +123,7 @@ A API desenvolvida nesse trabalho está disponibilizada no caminho `http://{host
 
 ### Deletar Autor
 `DELETE /api/evento/artigo/{id_artigo}autor/{id_autor}`
+
+# Possíveis melhorias
+1. Implementar validação dos campos em todas as classes (Principalmente em classes que dependentes).
+2. Enviar mensagem de resposta para os métodos Post, Put e Delete de todas as classes.
