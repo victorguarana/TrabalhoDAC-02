@@ -43,55 +43,107 @@ public class EventoService {
     @POST
     @Path("volume")
     @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
-    public void createVolume(@FormParam("sigla") String sigla, @FormParam("edicao") int edicao, @FormParam("cidade") String cidade, @FormParam("data_inicio") String data_inicio, @FormParam("descricao") String descricao, @FormParam("descricao_en") String descricao_en) {
-        JPAVolumeDAO dao = new JPAVolumeDAO();
-        Volume v = new Volume();
-        v.setSigla(sigla);
-        v.setEdicao(edicao);
-        v.setCidade(cidade);
-        v.setDataInicio(data_inicio);
-        v.setDescricao(descricao);
-        v.setDescricaoEn(descricao_en);
-        dao.cria(v);
+    public void createVolume(@FormParam("sigla") String sigla, @FormParam("edicao") int edicao, @FormParam("cidade") String cidade, @FormParam("data_inicio") String data_inicio, @FormParam("descricao") String descricao, @FormParam("descricao_en") String descricao_en, @FormParam("id") long id) {
+        
+        if (id == 0) {
+            JPAVolumeDAO dao = new JPAVolumeDAO();
+            Volume v = new Volume();
+            v.setSigla(sigla);
+            v.setEdicao(edicao);
+            v.setCidade(cidade);
+            v.setDataInicio(data_inicio);
+            v.setDescricao(descricao);
+            v.setDescricaoEn(descricao_en);
+            dao.cria(v);
+        }
+        
+        else {
+            JPAVolumeDAO dao = new JPAVolumeDAO();
+            Volume v = dao.recupera(id);
+            v.setId(id);
+            v.setSigla(sigla);
+            v.setEdicao(edicao);
+            v.setCidade(cidade);
+            v.setDataInicio(data_inicio);
+            v.setDescricao(descricao);
+            v.setDescricaoEn(descricao_en);
+            dao.atualiza(v);
+        }
     }
     
     @POST
     @Path("artigo")
     @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
-    public void createArtigo(@FormParam("ordem_volume") int ordem_volume, @FormParam("idioma") String idioma, @FormParam("titulo") String titulo, @FormParam("titulo_en") String titulo_en, @FormParam("resumo") String resumo, @FormParam("resumo_en") String resumo_en, @FormParam("palavras_chave") String palavra_chave, @FormParam("palavras_chave_en") String palavra_chave_en, @FormParam("volume") long volume_id) {
-        JPAVolumeDAO volume_dao = new JPAVolumeDAO();
-        Volume volume = volume_dao.recupera(volume_id);
-        Artigo artigo = new Artigo();
-        artigo.setOrdemVolume(ordem_volume);
-        artigo.setIdioma(idioma);
-        artigo.setTitulo(titulo);
-        artigo.setTituloEn(titulo_en);
-        artigo.setResumo(resumo);
-        artigo.setResumoEn(resumo_en);
-        artigo.setPalavrasChave(palavra_chave);
-        artigo.setPalavrasChaveEn(palavra_chave_en);
-        volume.addArtigo(artigo);
-        volume_dao.atualiza(volume);
+    public void createArtigo(@FormParam("ordem_volume") int ordem_volume, @FormParam("idioma") String idioma, @FormParam("titulo") String titulo, @FormParam("titulo_en") String titulo_en, @FormParam("resumo") String resumo, @FormParam("resumo_en") String resumo_en, @FormParam("palavras_chave") String palavra_chave, @FormParam("palavras_chave_en") String palavra_chave_en, @FormParam("volume") long volume_id, @FormParam("id") long id) {
+        
+        if (id == 0) {
+            JPAVolumeDAO volume_dao = new JPAVolumeDAO();
+            Volume volume = volume_dao.recupera(volume_id);
+            Artigo artigo = new Artigo();
+            artigo.setOrdemVolume(ordem_volume);
+            artigo.setIdioma(idioma);
+            artigo.setTitulo(titulo);
+            artigo.setTituloEn(titulo_en);
+            artigo.setResumo(resumo);
+            artigo.setResumoEn(resumo_en);
+            artigo.setPalavrasChave(palavra_chave);
+            artigo.setPalavrasChaveEn(palavra_chave_en);
+            volume.addArtigo(artigo);
+            volume_dao.atualiza(volume);
+        }
+        else {
+            JPAArtigoDAO dao = new JPAArtigoDAO();
+            Artigo artigo = dao.recupera(id);
+            artigo.setId(id);
+            artigo.setOrdemVolume(ordem_volume);
+            artigo.setIdioma(idioma);
+            artigo.setTitulo(titulo);
+            artigo.setTituloEn(titulo_en);
+            artigo.setResumo(resumo);
+            artigo.setResumoEn(resumo_en);
+            artigo.setPalavrasChave(palavra_chave);
+            artigo.setPalavrasChaveEn(palavra_chave_en);
+            dao.atualiza(artigo);
+        }
     }
     
     @POST
     @Path("autor")
     @Consumes({MediaType.APPLICATION_FORM_URLENCODED})
-    public void createAutor(@FormParam("ordem_artigo") int ordem_artigo, @FormParam("email") String email, @FormParam("nome_primeiro") String nome_primeiro, @FormParam("nome_meio") String nome_meio, @FormParam("nome_ultimo") String nome_ultimo, @FormParam("afiliacao") String afiliacao, @FormParam("afiliacao_en") String afiliacao_en, @FormParam("pais") String pais, @FormParam("orcid") String orcid, @FormParam("artigo") long artigo_id) {
-        JPAArtigoDAO artigo_dao = new JPAArtigoDAO();
-        Artigo artigo = artigo_dao.recupera(artigo_id);
-        Autor autor = new Autor();
-        autor.setOrdemArtigo(ordem_artigo);
-        autor.setEmail(email);
-        autor.setNomePrimeiro(nome_primeiro);
-        autor.setNomeMeio(nome_meio);
-        autor.setNomeUltimo(nome_ultimo);
-        autor.setAfiliacao(afiliacao);
-        autor.setAfiliacaoEn(afiliacao_en);
-        autor.setPais(pais);
-        autor.setOrcid(orcid);
-        artigo.addAutor(autor);
-        artigo_dao.atualiza(artigo);
+    public void createAutor(@FormParam("ordem_artigo") int ordem_artigo, @FormParam("email") String email, @FormParam("nome_primeiro") String nome_primeiro, @FormParam("nome_meio") String nome_meio, @FormParam("nome_ultimo") String nome_ultimo, @FormParam("afiliacao") String afiliacao, @FormParam("afiliacao_en") String afiliacao_en, @FormParam("pais") String pais, @FormParam("orcid") String orcid, @FormParam("artigo") long artigo_id, @FormParam("id") long id) {
+        
+        if (id == 0) {
+            JPAArtigoDAO artigo_dao = new JPAArtigoDAO();
+            Artigo artigo = artigo_dao.recupera(artigo_id);
+            Autor autor = new Autor();
+            autor.setOrdemArtigo(ordem_artigo);
+            autor.setEmail(email);
+            autor.setNomePrimeiro(nome_primeiro);
+            autor.setNomeMeio(nome_meio);
+            autor.setNomeUltimo(nome_ultimo);
+            autor.setAfiliacao(afiliacao);
+            autor.setAfiliacaoEn(afiliacao_en);
+            autor.setPais(pais);
+            autor.setOrcid(orcid);
+            artigo.addAutor(autor);
+            artigo_dao.atualiza(artigo);
+        }
+        
+        else {
+            JPAAutorDAO dao = new JPAAutorDAO();
+            Autor autor = dao.recupera(id);
+            autor.setId(id);
+            autor.setOrdemArtigo(ordem_artigo);
+            autor.setEmail(email);
+            autor.setNomePrimeiro(nome_primeiro);
+            autor.setNomeMeio(nome_meio);
+            autor.setNomeUltimo(nome_ultimo);
+            autor.setAfiliacao(afiliacao);
+            autor.setAfiliacaoEn(afiliacao_en);
+            autor.setPais(pais);
+            autor.setOrcid(orcid);            
+            dao.atualiza(autor);
+        }
     }
     
     
